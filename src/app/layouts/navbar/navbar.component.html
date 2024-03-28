@@ -1,0 +1,46 @@
+<nav class="relative shadow-sm">
+  <div class="container">
+    <div
+      class="nav-container min-h-16 md:min-h-fit flex justify-between items-center"
+    >
+      <a routerLink="home" id="logo" class="text-4xl font-semibold capitalize">
+        online library
+      </a>
+
+      <button
+        type="button"
+        class="mobile-btn"
+        [ngClass]="{ open: showMobileMenu }"
+        (click)="menuToggleHandler()"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <ul
+        class="navbar-nav flex justify-between items-center"
+        [ngClass]="{ show: showMobileMenu }"
+      >
+        @for (nav of navItems; track $index) {
+
+        <li class="nav-item">
+          <a
+            class="block py-4 px-8 text-lg font-medium capitalize main-color transition-colors hover:main-bg hover:text-white"
+            routerLinkActive="active"
+            [routerLink]="nav.link"
+            (click)="menuToggleHandler()"
+            >{{ nav.title }}</a
+          >
+        </li>
+        }
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div
+  class="disable-background"
+  [ngClass]="{ show: showMobileMenu }"
+  (click)="menuToggleHandler()"
+></div>

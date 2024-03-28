@@ -25,3 +25,18 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## APIs
+
+`get books by subject`
+http://openlibrary.org/subjects/subjectName.json
+
+`get book image`
+https://covers.openlibrary.org/b/id/240727-M.jpg
+
+`search by title / author`
+https://openlibrary.org/search.json?title=the+lord+of+the+rings
+https://openlibrary.org/search.json?author=tolkien&sort=new
+
+`FAV list`
+open https://openlibrary.org/dev/docs/api/lists#create-list
