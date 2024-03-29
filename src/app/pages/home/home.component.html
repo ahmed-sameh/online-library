@@ -1,1 +1,8 @@
-<p>home works!</p>
+<div class="container">
+  <section id="books-container" class="grid">
+    @for (book of books; track $index) {
+
+    <app-book-card [_details]="book" class="h-full"></app-book-card>
+    }
+  </section>
+</div>

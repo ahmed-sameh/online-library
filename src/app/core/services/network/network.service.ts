@@ -9,9 +9,9 @@ export class NetworkService {
   urlHandler(resource?: string | number, params?: {}) {
     if (params) {
       const fullURL = (resource += this.getArgs(params));
-      return `https://api.apilayer.com/fixer/${fullURL}`;
+      return `https://openlibrary.org/${fullURL}`;
     } else {
-      return `https://api.apilayer.com/fixer/${resource}`;
+      return `https://openlibrary.org/${resource}`;
     }
   }
 

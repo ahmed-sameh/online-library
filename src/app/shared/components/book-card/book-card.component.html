@@ -1,0 +1,46 @@
+<div
+  class="card-item flex flex-col rounded-xl overflow-hidden shadow-md main-transition cursor-pointer relative h-full w-full"
+  [routerLink]="[]"
+>
+  <div class="relative w-full overflow-hidden animation-transition">
+    <app-image-loader
+      [alt]="_details?.title + 'cover image'"
+      [id]="_details?.id"
+      [imageLoading]="true"
+      [imageLoadingUrl]="'assets/images/image-loader.webp'"
+      [imageUrl]="_details?.cover_id"
+      [noImageUrl]="'assets/images/image-loader.webp'"
+      [imageClass]="'w-full h-full object-cover'"
+      class="test relative block w-full h-[26rem] overflow-hidden z-[-2]"
+    >
+    </app-image-loader>
+  </div>
+
+  <div class="p-3">
+    <p
+      class="sub-color font-bold text-lg min-h-8 flex items-center"
+      [title]="_details?.title"
+    >
+      {{ _details?.title | cutLongString : 35 }}
+    </p>
+
+    <div>
+      @for (author of _details?.authors | slice : 0 : 3; track $index; ; let
+      last = $last) {
+      <a
+        [routerLink]="[author?.name]"
+        class="text-[#3b3736] transition-colors hover:main-color hover:underline"
+      >
+        {{ author?.name }}
+        @if(!last) { {{ ", " }} }
+      </a>
+      }
+    </div>
+  </div>
+
+  <p
+    class="sub-bg text-white text-center absolute right-4 top-4 px-3 py-2 rounded-lg text-sm"
+  >
+    {{ _details?.first_publish_year }}
+  </p>
+</div>

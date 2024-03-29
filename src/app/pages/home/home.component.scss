@@ -1,0 +1,31 @@
+#books-container {
+  --gap: 2rem;
+  --num-cols: 3;
+
+  box-sizing: border-box;
+  padding: var(--gap);
+  grid-template-columns: repeat(var(--num-cols), 1fr);
+  grid-template-rows: auto;
+  gap: var(--gap);
+  display: grid;
+  grid-row: 1fr 2fr 1fr;
+  align-items: stretch; /* This property ensures all grid items stretch to the same height */
+}
+
+@media screen and (max-width: 1535px) {
+  #books-container {
+    --num-cols: 4;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  #books-container {
+    --num-cols: 3;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #books-container {
+    --num-cols: 2;
+  }
+}

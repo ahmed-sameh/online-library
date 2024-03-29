@@ -1,0 +1,12 @@
+<img
+  [alt]="alt"
+  [id]="imageId"
+  (load)="onImageLoaded()"
+  (error)="handleEmptyImage()"
+  loading="lazy"
+  [ngClass]="imageClass"
+  [height]="imageHeight"
+  [width]="imageWidth"
+  [defaultImage]="noImageUrl"
+  [lazyLoad]="getImageURL()"
+/>
