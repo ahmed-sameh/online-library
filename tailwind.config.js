@@ -55,10 +55,11 @@ module.exports = {
         ".main-btn": {
           "background-color": "#1E1E1E",
           color: "#FFF",
-          padding: "0.5rem 1rem",
+          padding: "1rem 1rem",
           "border-radius": "10px",
           transition: "0.3s",
           display: "block",
+          width: "100%",
         },
         ".main-btn:hover": {
           "background-color": "#871E35",

@@ -39,4 +39,10 @@ export class NavbarComponent implements OnInit {
       document.querySelector('html').style.overflow = 'auto';
     }
   }
+
+  closeMenuHandler() {
+    this.showMobileMenu = false;
+
+    document.querySelector('html').style.overflow = 'auto';
+  }
 }

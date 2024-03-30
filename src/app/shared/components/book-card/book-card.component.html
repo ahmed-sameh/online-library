@@ -1,17 +1,16 @@
 <div
   class="card-item flex flex-col rounded-xl overflow-hidden shadow-md main-transition cursor-pointer relative h-full w-full"
-  [routerLink]="[]"
 >
   <div class="relative w-full overflow-hidden animation-transition">
     <app-image-loader
       [alt]="_details?.title + 'cover image'"
-      [id]="_details?.id"
+      [id]="_details?.key | extractID"
       [imageLoading]="true"
       [imageLoadingUrl]="'assets/images/image-loader.webp'"
       [imageUrl]="_details?.cover_id"
       [noImageUrl]="'assets/images/image-loader.webp'"
       [imageClass]="'w-full h-full object-cover'"
-      class="test relative block w-full h-[26rem] overflow-hidden z-[-2]"
+      class="relative block w-full h-[26rem] overflow-hidden z-[-2]"
     >
     </app-image-loader>
   </div>

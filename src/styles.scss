@@ -6,6 +6,7 @@
 /* global styles and  varibles */
 :root {
   --main-color: 135, 30, 53;
+  --main-color: 135, 30, 53;
 
   /* transtion duration */
   --main-transtion-duration: 0.3s;
@@ -75,10 +76,9 @@ button:focus-visible {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: rgb(var(--main-color));
-  border-radius: 3px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #871e35;
+  background: #1e1e1e;
 }

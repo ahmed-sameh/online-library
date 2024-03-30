@@ -3,7 +3,11 @@
     <div
       class="nav-container min-h-16 md:min-h-fit flex justify-between items-center"
     >
-      <a routerLink="home" id="logo" class="text-4xl font-semibold capitalize">
+      <a
+        routerLink="home"
+        id="logo"
+        class="text-4xl font-semibold capitalize sub-color"
+      >
         online library
       </a>
 
@@ -29,7 +33,7 @@
             class="block py-6 px-8 text-lg font-medium capitalize main-color transition-colors hover:main-bg hover:text-white"
             routerLinkActive="active"
             [routerLink]="nav.link"
-            (click)="menuToggleHandler()"
+            (click)="closeMenuHandler()"
             >{{ nav.title }}</a
           >
         </li>
@@ -42,5 +46,5 @@
 <div
   class="disable-background"
   [ngClass]="{ show: showMobileMenu }"
-  (click)="menuToggleHandler()"
+  (click)="closeMenuHandler()"
 ></div>

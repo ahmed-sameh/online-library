@@ -3,7 +3,6 @@
   --num-cols: 3;
 
   box-sizing: border-box;
-  padding: var(--gap);
   grid-template-columns: repeat(var(--num-cols), 1fr);
   grid-template-rows: auto;
   gap: var(--gap);
@@ -12,20 +11,14 @@
   align-items: stretch; /* This property ensures all grid items stretch to the same height */
 }
 
-@media screen and (max-width: 1535px) {
-  #books-container {
-    --num-cols: 4;
-  }
-}
-
 @media screen and (max-width: 1280px) {
   #books-container {
-    --num-cols: 3;
+    --num-cols: 2;
   }
 }
 
 @media screen and (max-width: 767px) {
   #books-container {
-    --num-cols: 2;
+    --num-cols: 1;
   }
 }

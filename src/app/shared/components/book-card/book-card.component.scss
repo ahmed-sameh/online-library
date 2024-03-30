@@ -8,7 +8,7 @@
   transition: 0.7s;
 }
 
-.card-item:hover .test {
+.card-item:hover app-image-loader {
   animation: image-pop-rotate 6s linear forwards;
 }
 

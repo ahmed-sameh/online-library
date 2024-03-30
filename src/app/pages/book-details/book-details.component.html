@@ -1,0 +1,58 @@
+<section class="container py-4">
+  <h2 class="text-3xl main-color font-bold my-8">{{ details?.title }}</h2>
+
+  <div class="flex gap-8 flex-col md:flex-row">
+    <div>
+      <app-image-loader
+        [alt]="details?.title + 'cover image'"
+        [id]="details?.key | extractID"
+        [imageLoading]="true"
+        [imageLoadingUrl]="'assets/images/image-loader.webp'"
+        [imageUrl]="details?.cover_id"
+        [noImageUrl]="'assets/images/image-loader.webp'"
+        [imageClass]="
+          'w-full h-full  max-w-sm max-h-[28rem] object-cover mx-auto'
+        "
+      >
+      </app-image-loader>
+      <button type="button" class="main-btn mt-4">Add To Faviourts</button>
+    </div>
+    <div class="flex flex-col gap-2 py-4">
+      <p class="text-lg">
+        <span class="font-bold">First Publish Year : </span>
+        <span class="font-semibold main-color">{{
+          details?.first_publish_year
+        }}</span>
+      </p>
+
+      <p class="text-lg">
+        <span class="font-bold">Name : </span>
+        <span class="font-semibold main-color">{{ details?.title }}</span>
+      </p>
+
+      <p class="text-lg">
+        <span class="font-bold"> Editions Count : </span>
+        <span class="font-semibold main-color">{{
+          details?.edition_count
+        }}</span>
+      </p>
+
+      <p class="text-lg">
+        <span class="font-bold"> Page Counts : </span>
+        <span class="font-semibold main-color">{{ pagesCount }}</span>
+      </p>
+      <div>
+        <p class="font-bold mb-2">Authors :</p>
+        <ul class="list-disc ps-8">
+          @for (author of details?.authors; track $index) {
+          <li class="mb-1">
+            <a [routerLink]="[author?.key]" class="font-semibold">
+              {{ author?.name }}
+            </a>
+          </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

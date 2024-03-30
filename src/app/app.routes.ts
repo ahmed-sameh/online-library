@@ -7,6 +7,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/home/home.component').then((c) => c.HomeComponent),
   },
+  {
+    path: 'books/:subject/:id/details',
+    loadComponent: () =>
+      import('./pages/book-details/book-details.component').then(
+        (c) => c.BookDetailsComponent
+      ),
+  },
 
   { path: '**', redirectTo: 'home' },
 ];

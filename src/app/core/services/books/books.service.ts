@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { NetworkService } from '../network/network.service';
 import { HttpClient } from '@angular/common/http';
-import { of, tap } from 'rxjs';
+import { map, of, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
-export class HomeService {
-  homeData = {
-    name: 'finance',
-    works: [
+export class BooksService {
+  booksState = {
+    finance: [
       {
         key: '/works/OL14903581W',
         title: 'Laws, etc',
@@ -1191,22 +1190,60 @@ export class HomeService {
       },
     ],
   };
+
+  editionsState = {};
   constructor(
     private http: HttpClient,
     private networkService: NetworkService
   ) {}
 
-  getHomeData() {
-    if (this.homeData) {
-      return of(this.homeData);
+  getBooksBySubject(subject) {
+    if (subject in this.booksState) {
+      return of(this.booksState[subject]);
     } else {
       return this.http
-        .get(this.networkService.urlHandler('subjects/finance.json'))
+        .get(this.networkService.urlHandler(`subjects/${subject}.json`))
         .pipe(
           tap((res: any) => {
-            this.homeData = res;
-          })
+            this.booksState[subject] = res.works;
+          }),
+          map((res) => res.works)
         );
     }
+  }
+
+  getBooksDetailsLocaly(subject, id) {
+    if (subject in this.booksState) {
+      const targetSubjectBooks = this.booksState[subject];
+      const targetBook = targetSubjectBooks.find((el) => el.key.includes(id));
+      return targetBook ? of(targetBook) : this.getBookDetailsFromServer(id);
+    } else {
+      return this.getBookDetailsFromServer(id);
+    }
+  }
+
+  getBookDetailsFromServer(id) {
+    return this.http.get(this.networkService.urlHandler(`works/${id}.json`));
+  }
+
+  getBooksEditionsDetailsLocaly(id) {
+    if (id in this.editionsState) {
+      const targetBookEditions = this.editionsState[id];
+      return targetBookEditions
+        ? of(targetBookEditions)
+        : this.getBookEditionsDetailsFromServer(id);
+    } else {
+      return this.getBookEditionsDetailsFromServer(id);
+    }
+  }
+
+  getBookEditionsDetailsFromServer(id) {
+    return this.http
+      .get(this.networkService.urlHandler(`works/${id}/editions.json`))
+      .pipe(
+        tap((editionDetails) => {
+          this.editionsState[id] = editionDetails;
+        })
+      );
   }
 }

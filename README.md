@@ -31,6 +31,12 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 `get books by subject`
 http://openlibrary.org/subjects/subjectName.json
 
+`get book details`
+https://openlibrary.org/works/OL45804W.json
+
+`get edition details`
+https://openlibrary.org/works/OL45804W/editions.json
+
 `get book image`
 https://covers.openlibrary.org/b/id/240727-M.jpg
 
@@ -39,4 +45,4 @@ https://openlibrary.org/search.json?title=the+lord+of+the+rings
 https://openlibrary.org/search.json?author=tolkien&sort=new
 
 `FAV list`
-open https://openlibrary.org/dev/docs/api/lists#create-list
+https://openlibrary.org/dev/docs/api/lists#create-list
