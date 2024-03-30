@@ -4,4 +4,5 @@ export interface BookData {
   cover_id: number;
   authors: { key: string; name: string }[];
   first_publish_year: number;
+  main_subject: string;
 }

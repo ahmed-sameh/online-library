@@ -4,7 +4,8 @@ import { Subscription, take } from 'rxjs';
 import { BooksService } from '../../core/services/books/books.service';
 import { ImageLoaderComponent } from '../../shared/components/image-loader/image-loader.component';
 import { ExtractIdPipe } from '../../core/pipes/extract-id.pipe';
-
+import { AuthorsService } from '../../core/services/author/author.service';
+const extractIdPipe = new ExtractIdPipe();
 @Component({
   selector: 'app-book-details',
   standalone: true,
@@ -15,13 +16,14 @@ import { ExtractIdPipe } from '../../core/pipes/extract-id.pipe';
 export class BookDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private activatedRoute: ActivatedRoute,
+    private authorsService: AuthorsService,
     private booksService: BooksService
   ) {}
   _ID;
   _subject;
   details;
-  pagesCount;
-
+  editionDetails;
+  authors = [];
   paramsSub: Subscription;
   ngOnInit(): void {
     this.getParams();
@@ -42,6 +44,8 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
       .pipe(take(1))
       .subscribe((details) => {
         this.details = details;
+        console.log(details);
+        this.authorListHandler(details);
       });
   }
 
@@ -50,26 +54,43 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
       .getBooksEditionsDetailsLocaly(this._ID)
       .pipe(take(1))
       .subscribe((details) => {
-        this.getPagesCount(details);
+        this.getEditionsDetails(details);
       });
   }
 
-  getPagesCount(data) {
+  getEditionsDetails(data) {
     const editions = data.entries as any[];
-    // find the newest edition object
-    const latestPublishedEdition = editions.reduce((prev, current) => {
-      const prevYear = parseInt(prev.publish_date);
-      const currentYear = parseInt(current.publish_date);
-      return prevYear > currentYear ? prev : current;
-    }, editions[0]);
+    // Sorting editions array by publish_date
+    editions.sort((a, b) => {
+      return parseInt(a.publish_date) - parseInt(b.publish_date);
+    });
 
-    // check if page count avalible in the object and set full back if it not exist
-    if ('number_of_pages' in latestPublishedEdition) {
-      this.pagesCount = latestPublishedEdition.number_of_pages;
+    this.editionDetails = {
+      first: editions[0],
+      latest: editions[editions.length - 1],
+      counts: editions.length,
+    };
+  }
+
+  authorListHandler(bookDetails) {
+    if (bookDetails.authors.length > 0 && 'name' in bookDetails.authors[0]) {
+      this.authors = bookDetails.authors;
     } else {
-      const fullBackEdition = editions.find((el) => 'number_of_pages' in el);
-      this.pagesCount = fullBackEdition ? fullBackEdition.number_of_pages : 0;
+      const ids = bookDetails.authors
+        .map((el) => extractIdPipe.transform(el.author.key))
+        .slice(0, 5);
+      this.getAuthors(ids);
     }
+  }
+
+  getAuthors(idsList) {
+    this.authorsService
+      .getGroupOfAuthors(idsList)
+      .pipe(take(1))
+      .subscribe((res) => {
+        this.authors = res.map((el: any) => ({ name: el.name, key: el.key }));
+        console.log(this.authors);
+      });
   }
 
   ngOnDestroy(): void {

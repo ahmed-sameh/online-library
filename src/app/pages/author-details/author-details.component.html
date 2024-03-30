@@ -1,0 +1,58 @@
+<section class="container py-4">
+  <h2 class="text-3xl main-color font-bold my-8">{{ details?.name }}</h2>
+
+  <div class="flex gap-8 flex-col md:flex-row">
+    <div>
+      <app-image-loader
+        [alt]="details?.title + 'cover image'"
+        [id]="details?.key | extractID"
+        [imageLoading]="true"
+        [imageLoadingUrl]="'assets/images/image-loader.webp'"
+        [imageUrl]="details?.photos ? details?.photos[0] : null"
+        [noImageUrl]="'assets/images/image-loader.webp'"
+        [imageClass]="
+          'w-full h-full  max-w-sm max-h-[28rem] object-cover mx-auto'
+        "
+      >
+      </app-image-loader>
+    </div>
+    <div class="flex flex-col gap-2 py-4">
+      <p class="text-lg">
+        <span class="font-bold">Birth Year : </span>
+        <span class="font-semibold main-color">{{
+          details?.birth_date || "No Avalible Data"
+        }}</span>
+      </p>
+
+      <p class="text-lg">
+        <span class="font-bold">Work Count : </span>
+        <span class="font-semibold main-color">{{
+          books?.length || "No Avalible Data"
+        }}</span>
+      </p>
+
+      <p class="text-lg">
+        <span class="font-bold"> Most Popular Book : </span>
+        <a
+          [routerLink]="['/books', 'live', topBook?.key | extractID, 'details']"
+          class="font-semibold main-color"
+          >{{ topBook?.title || "No Avalible Data" }}</a
+        >
+      </p>
+
+      <div>
+        <p class="font-bold mb-2">Top 5 Subjects :</p>
+        <ul class="list-disc ps-8">
+          @for (subject of top5Subjects ; track $index) {
+          <li class="font-semibold capitalize mb-1">
+            {{ subject.subject + " : " + subject?.count + " works" }}
+          </li>
+          } @empty {
+          <li class="font-semibold capitalize mb-1">No Avalible Data</li>
+
+          }
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>

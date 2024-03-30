@@ -21,33 +21,44 @@
       <p class="text-lg">
         <span class="font-bold">First Publish Year : </span>
         <span class="font-semibold main-color">{{
-          details?.first_publish_year
+          details?.first_publish_year ||
+            editionDetails?.first?.publish_date ||
+            "No Avalible Data"
         }}</span>
       </p>
 
       <p class="text-lg">
         <span class="font-bold">Name : </span>
-        <span class="font-semibold main-color">{{ details?.title }}</span>
+        <span class="font-semibold main-color">{{
+          details?.title || "No Avalible Data"
+        }}</span>
       </p>
 
       <p class="text-lg">
         <span class="font-bold"> Editions Count : </span>
         <span class="font-semibold main-color">{{
-          details?.edition_count
+          details?.edition_count || editionDetails?.counts || "No Avalible Data"
         }}</span>
       </p>
 
       <p class="text-lg">
         <span class="font-bold"> Page Counts : </span>
-        <span class="font-semibold main-color">{{ pagesCount }}</span>
+        <span class="font-semibold main-color">{{
+          editionDetails?.latest?.number_of_pages ||
+            editionDetails?.first?.number_of_pages ||
+            "No Avalible Data"
+        }}</span>
       </p>
       <div>
         <p class="font-bold mb-2">Authors :</p>
         <ul class="list-disc ps-8">
-          @for (author of details?.authors; track $index) {
+          @for (author of authors; track $index) {
           <li class="mb-1">
-            <a [routerLink]="[author?.key]" class="font-semibold">
-              {{ author?.name }}
+            <a
+              [routerLink]="['/authors', author?.key | extractID, 'details']"
+              class="font-semibold transition-colors hover:main-color hover:underline"
+            >
+              {{ author?.name || "No Avalible Data" }}
             </a>
           </li>
           }

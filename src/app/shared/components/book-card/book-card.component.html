@@ -1,7 +1,15 @@
 <div
   class="card-item flex flex-col rounded-xl overflow-hidden shadow-md main-transition cursor-pointer relative h-full w-full"
 >
-  <div class="relative w-full overflow-hidden animation-transition">
+  <div
+    class="relative w-full overflow-hidden animation-transition"
+    [routerLink]="[
+      '/books',
+      _details?.main_subject,
+      _details?.key | extractID,
+      'details'
+    ]"
+  >
     <app-image-loader
       [alt]="_details?.title + 'cover image'"
       [id]="_details?.key | extractID"
@@ -19,6 +27,12 @@
     <p
       class="sub-color font-bold text-lg min-h-8 flex items-center"
       [title]="_details?.title"
+      [routerLink]="[
+        '/books',
+        _details?.main_subject,
+        _details?.key | extractID,
+        'details'
+      ]"
     >
       {{ _details?.title | cutLongString : 35 }}
     </p>
@@ -27,7 +41,7 @@
       @for (author of _details?.authors | slice : 0 : 3; track $index; ; let
       last = $last) {
       <a
-        [routerLink]="[author?.name]"
+        [routerLink]="['/authors', author?.key | extractID, 'details']"
         class="text-[#3b3736] transition-colors hover:main-color hover:underline"
       >
         {{ author?.name }}

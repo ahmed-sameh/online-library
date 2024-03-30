@@ -14,6 +14,13 @@ export const routes: Routes = [
         (c) => c.BookDetailsComponent
       ),
   },
+  {
+    path: 'authors/:id/details',
+    loadComponent: () =>
+      import('./pages/author-details/author-details.component').then(
+        (c) => c.AuthorDetailsComponent
+      ),
+  },
 
   { path: '**', redirectTo: 'home' },
 ];

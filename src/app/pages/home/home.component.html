@@ -1,14 +1,10 @@
 <div class="container">
   <h1 class="my-8 text-3xl font-bold main-color">Finance Books</h1>
 
-  <section id="books-container" class="grid">
+  <section id="books-container" class="grid mb-8">
     @for (book of books |slice : 0 : 9 ; track $index) {
 
-    <app-book-card
-      [_details]="book"
-      class="h-full"
-      [routerLink]="['/books', 'finance', book?.key | extractID, 'details']"
-    ></app-book-card>
+    <app-book-card [_details]="book" class="h-full"></app-book-card>
     }
   </section>
 </div>
