@@ -21,6 +21,11 @@ export const routes: Routes = [
         (c) => c.AuthorDetailsComponent
       ),
   },
+  {
+    path: 'search',
+    loadComponent: () =>
+      import('./pages/search/search.component').then((c) => c.SearchComponent),
+  },
 
   { path: '**', redirectTo: 'home' },
 ];

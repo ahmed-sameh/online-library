@@ -34,8 +34,8 @@ module.exports = {
           "align-items": "center",
           "justify-content": "center",
         },
-        ".rotate-y-180": {
-          transform: "rotateY(180deg)",
+        ".flex-0": {
+          flex: 0,
         },
         ".main-transition": {
           "transition-duration": "0.3s",

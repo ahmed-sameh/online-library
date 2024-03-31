@@ -1,0 +1,69 @@
+<div class="container">
+  <form
+    class="mt-8 shadow-md px-4 border border-solid border-gray-200 rounded-sm flex"
+    [formGroup]="searchForm"
+    (ngSubmit)="search()"
+  >
+    <div class="flex-1 relative">
+      <input
+        type="text"
+        class="w-full p-4 font-semibold main-color"
+        placeholder="Search ..."
+        formControlName="keyword"
+        name="keyword"
+        id="keyword"
+      />
+      <button
+        type="submit"
+        class="absolute right-0 top-0 h-full w-16 flex-center-el"
+      >
+        <img
+          src="assets/images/search-icon.png"
+          class="max-w-6"
+          alt="search-icon"
+        />
+      </button>
+    </div>
+    <select
+      formControlName="type"
+      name="type"
+      id="type"
+      class="min-w-24 ps-4 border-l-2 border-gray-200 cursor-pointer"
+    >
+      <option value="book" class="capitalize">book</option>
+      <option value="subject" class="capitalize">subject</option>
+      <option value="author" class="capitalize">author</option>
+    </select>
+  </form>
+
+  @if (FormValue.keyword && submited) {
+
+  <div class="flex items-center justify-between mt-8">
+    <h1 class="flex-1 font-semibold text-2xl">
+      {{ "Search Results In " + FormValue.type + "s About " }}
+      <span class="main-color"> {{ FormValue.keyword }} </span>
+    </h1>
+
+    <button class="main-btn w-fit flex-0" type="button" (click)="clear()">
+      Clear
+    </button>
+  </div>
+  }
+
+  <section id="books-container" class="grid my-8">
+    @for (book of books | slice : 0 : 9 ; track $index) {
+
+    <app-book-card [_details]="book" class="h-full"></app-book-card>
+    }@empty {
+    <h2
+      class="mt-8 py-8 text-center text-gray-400 text-2xl col-span-3 font-semibold"
+    >
+      {{
+        FormValue.keyword && submited
+          ? "No Search Resault"
+          : "Search About Anything ..."
+      }}
+    </h2>
+    }
+  </section>
+</div>

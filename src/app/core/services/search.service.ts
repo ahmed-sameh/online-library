@@ -13,8 +13,16 @@ export class SearchService {
   ) {}
 
   search(options: SearchOptions) {
-    return this.http.get(
-      this.networkService.urlHandler(`search.json`, options)
-    );
+    if (options.type == 'subject') {
+      return this.http.get(
+        this.networkService.urlHandler(
+          `subjects/${options.subject_keyword}.json`
+        )
+      );
+    } else {
+      return this.http.get(
+        this.networkService.urlHandler(`search.json`, options)
+      );
+    }
   }
 }

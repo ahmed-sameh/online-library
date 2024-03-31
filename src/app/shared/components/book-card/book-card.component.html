@@ -15,7 +15,7 @@
       [id]="_details?.key | extractID"
       [imageLoading]="true"
       [imageLoadingUrl]="'assets/images/image-loader.webp'"
-      [imageUrl]="_details?.cover_id"
+      [imageUrl]="_details?.cover_id || _details?.cover_i"
       [noImageUrl]="'assets/images/image-loader.webp'"
       [imageClass]="'w-full h-full object-cover'"
       class="relative block w-full h-[26rem] overflow-hidden z-[-2]"
