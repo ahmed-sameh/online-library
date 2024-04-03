@@ -49,6 +49,13 @@
       </a>
       }
     </div>
+
+    <p
+      class="main-color transition-colors hover:sub-color text-end underline mt-2"
+      (click)="showWishLists()"
+    >
+      Add To Whish List
+    </p>
   </div>
 
   <p
@@ -57,3 +64,15 @@
     {{ _details?.first_publish_year }}
   </p>
 </div>
+
+@if (showList) {
+<div
+  class="bg-black bg-opacity-80 fixed left-0 top-0 w-screen h-screen flex-center-el flex-col z-[9999]"
+>
+  <app-whishlist-items
+    [bookDetails]="_details"
+    (closeList)="closeWhishListsHandler()"
+    class="w-full"
+  ></app-whishlist-items>
+</div>
+}

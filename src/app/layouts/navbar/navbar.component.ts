@@ -23,7 +23,7 @@ export class NavbarComponent implements OnInit {
     },
     {
       title: 'wish list',
-      link: 'wish list',
+      link: 'wishlist',
     },
   ];
   constructor() {}

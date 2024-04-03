@@ -5,11 +5,18 @@ import { BooksService } from '../../core/services/books/books.service';
 import { ImageLoaderComponent } from '../../shared/components/image-loader/image-loader.component';
 import { ExtractIdPipe } from '../../core/pipes/extract-id.pipe';
 import { AuthorsService } from '../../core/services/author/author.service';
+import { WhishlistItemsComponent } from '../../shared/components/whishlist-items/whishlist-items.component';
 const extractIdPipe = new ExtractIdPipe();
 @Component({
   selector: 'app-book-details',
   standalone: true,
-  imports: [ImageLoaderComponent, ExtractIdPipe, RouterLink],
+  imports: [
+    ImageLoaderComponent,
+    ExtractIdPipe,
+    RouterLink,
+
+    WhishlistItemsComponent,
+  ],
   templateUrl: './book-details.component.html',
   styleUrl: './book-details.component.scss',
 })
@@ -25,6 +32,8 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
   editionDetails;
   authors = [];
   paramsSub: Subscription;
+  showList = false;
+
   ngOnInit(): void {
     this.getParams();
   }
@@ -91,6 +100,14 @@ export class BookDetailsComponent implements OnInit, OnDestroy {
         this.authors = res.map((el: any) => ({ name: el.name, key: el.key }));
         console.log(this.authors);
       });
+  }
+
+  showWishLists() {
+    this.showList = true;
+  }
+
+  closeWhishListsHandler() {
+    this.showList = false;
   }
 
   ngOnDestroy(): void {

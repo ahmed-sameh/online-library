@@ -1,0 +1,179 @@
+<section class="relative">
+  <div class="container">
+    <div class="flex justify-between items-center my-8">
+      <h2 class="text-3xl font-bold">Your Wish Lists</h2>
+
+      <button
+        type="button"
+        class="main-btn flex-0 min-w-fit"
+        (click)="renderListForm()"
+      >
+        Create List
+      </button>
+    </div>
+
+    <section>
+      @for (list of wishLists | keyvalue ; track $index) {
+      <div [id]="list.key" class="shadow-md p-6 bg-gray-100 mt-6 rounded-sm">
+        <div class="flex justify-between items-center flex-wrap gap-4">
+          <h3 class="text-2xl font-bold">
+            {{ list.value.name }}
+          </h3>
+
+          <div class="flex gap-2">
+            <button
+              type="button"
+              class="main-btn update-btn"
+              (click)="updateItemHandler(list.key)"
+            >
+              Update
+            </button>
+            <button
+              type="button"
+              class="shadow-sm px-3 py-2 rounded-sm transition-colors bg-red-600 hover:bg-red-700 text-white font-medium"
+              (click)="deleteItemHandler(list.key)"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+        <p class="ps-2 text-gray-400 font-medium mt-4">
+          {{ list.value.description }}
+        </p>
+        <p class="text-gray-400 font-medium mt-2 ps-2">
+          @if (list.value.books.length > 0) {
+
+          {{ "List Have " + list.value.books.length + " Books" }}
+          }@else {
+          {{ "Add Your First Book To This List" }}
+
+          }
+        </p>
+        <hr class="mt-6" />
+        <section id="books-container" class="grid my-6">
+          @for (book of list.value.books; track $index) {
+
+          <div
+            class="card-item flex flex-col rounded-xl overflow-hidden shadow-md main-transition cursor-pointer relative h-full w-full"
+          >
+            <div
+              class="relative w-full overflow-hidden animation-transition"
+              [routerLink]="[
+                '/books',
+                book?.main_subject,
+                book?.key | extractID,
+                'details'
+              ]"
+            >
+              <app-image-loader
+                [alt]="book?.title + 'cover image'"
+                [id]="book?.key | extractID"
+                [imageLoading]="true"
+                [imageLoadingUrl]="'assets/images/image-loader.webp'"
+                [imageUrl]="book?.cover_id || book?.cover_i"
+                [noImageUrl]="'assets/images/image-loader.webp'"
+                [imageClass]="'w-full h-full object-cover'"
+                class="relative block w-full h-[15rem] overflow-hidden"
+              >
+              </app-image-loader>
+            </div>
+
+            <div class="p-3 flex-1 flex flex-col">
+              <p
+                class="sub-color font-bold text-lg min-h-8 flex items-center"
+                [title]="book?.title"
+                [routerLink]="[
+                  '/books',
+                  book?.main_subject,
+                  book?.key | extractID,
+                  'details'
+                ]"
+              >
+                {{ book?.title | cutLongString : 35 }}
+              </p>
+
+              <p
+                class="main-color transition-colors hover:sub-color text-end underline mt-auto"
+                (click)="removeBookHandler(list.key, book.key)"
+              >
+                Remove
+              </p>
+            </div>
+
+            <p
+              class="sub-bg text-white text-center absolute right-4 top-4 px-3 py-2 rounded-lg text-sm"
+            >
+              {{ book?.first_publish_year }}
+            </p>
+          </div>
+          }@empty {
+          <h2
+            class="mt-8 py-8 text-center text-gray-400 text-2xl col-span-3 font-semibold"
+          >
+            No Avalible Books
+          </h2>
+          }
+        </section>
+      </div>
+      }@empty {
+      <h2
+        class="mt-8 py-8 text-center text-gray-400 text-2xl col-span-3 font-semibold"
+      >
+        No Wishlists Avalible Please Add New One
+      </h2>
+      }
+    </section>
+  </div>
+
+  @if (showForm) {
+  <div
+    class="bg-black bg-opacity-80 fixed left-0 top-0 w-screen h-screen flex-center-el flex-col"
+  >
+    <h2 class="text-white font-bold text-2xl py-4">New Wich List</h2>
+    <form
+      class="flex flex-col gap-4 w-[90vw] lg:w-1/2 p-6 rounded-sm bg-white"
+      [formGroup]="listForm"
+      (submit)="onSubmit()"
+    >
+      <div>
+        <input
+          type="text"
+          class="w-full p-4 font-semibold main-color shadow-sm rounded-sm"
+          placeholder="List Name"
+          formControlName="name"
+          name="name"
+          id="name"
+        />
+        @if (isFieldValid('name')) {
+        <p class="text-red-700 font-medium ps-1 mt-2">
+          Please Select Name To Your New List
+        </p>
+        }
+      </div>
+      <div>
+        <textarea
+          class="w-full p-4 font-semibold main-color shadow-sm rounded-sm resize-none"
+          formControlName="description"
+          placeholder="List Description"
+          cols="30"
+          rows="5"
+        ></textarea>
+        @if (isFieldValid('description')) {
+        <p class="text-red-700 font-medium ps-1 mt-2">
+          Please Provide To Us Short Prive About Your New List
+        </p>
+        }
+      </div>
+
+      <div class="flex gap-4">
+        <button type="submit" class="main-btn">
+          {{ updateMood ? "Update" : "Create" }}
+        </button>
+        <button type="button" class="main-btn" (click)="clearForm()">
+          Close
+        </button>
+      </div>
+    </form>
+  </div>
+  }
+</section>

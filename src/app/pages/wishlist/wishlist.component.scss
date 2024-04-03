@@ -1,0 +1,53 @@
+.update-btn {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+#books-container {
+  --gap: 2rem;
+  --num-cols: 5;
+
+  box-sizing: border-box;
+  grid-template-columns: repeat(var(--num-cols), 1fr);
+  grid-template-rows: auto;
+  gap: var(--gap);
+  display: grid;
+  grid-row: 1fr 2fr 1fr;
+  align-items: stretch; /* This property ensures all grid items stretch to the same height */
+}
+
+@media screen and (max-width: 1280px) {
+  #books-container {
+    --num-cols: 3;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  #books-container {
+    --num-cols: 1;
+  }
+}
+
+@media (min-width: 767px) {
+  .card-item:hover {
+    transform: translateY(-10px);
+  }
+}
+
+.animation-transition {
+  transition: 0.7s;
+}
+
+.card-item:hover app-image-loader {
+  animation: image-pop-rotate 6s linear forwards;
+}
+
+@keyframes image-pop-rotate {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    transform: translateY(40px) scale(1.4);
+  }
+}

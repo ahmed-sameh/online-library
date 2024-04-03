@@ -1,0 +1,51 @@
+<section class="max-w-[90vw] lg:max-w-[60vw] mx-auto bg-white p-6 rounded-sm">
+  <h2 class="text-2xl text-center main-color font-bold">
+    Your Awesome Wishlists
+  </h2>
+  <hr class="my-6" />
+  @for (list of lists | keyvalue ; track $index) {
+  <div
+    [id]="list.key"
+    class="shadow-md p-3 transition-colors hover:bg-gray-100 mt-2 rounded-sm"
+  >
+    <div class="flex justify-between items-center">
+      <h3 class="text-xl font-bold">
+        {{ list.value.name }}
+      </h3>
+
+      <div class="flex gap-2">
+        <button
+          type="button"
+          class="main-btn add-btn"
+          (click)="bookListActions(list.key)"
+        >
+          {{ isBookExistInList(list.key) ? "Remove" : "Add" }}
+        </button>
+      </div>
+    </div>
+    <p class="text-gray-400 font-medium">
+      @if (list.value.books.length > 0) {
+
+      {{ "Have " + list.value.books.length + " Books" }}
+      }@else {
+      {{ "Add Your First Book To This List" }}
+
+      }
+    </p>
+  </div>
+  }@empty {
+  <h2
+    class="mt-8 py-8 text-center text-gray-400 text-2xl col-span-3 font-semibold"
+  >
+    No Wishlists Avalible Please Add New One
+  </h2>
+  }
+
+  <div class="flex gap-4 mt-6">
+    <button type="button" class="main-btn" [routerLink]="['/wishlist']">
+      Add New List
+    </button>
+
+    <button type="button" class="main-btn" (click)="closeMenu()">Close</button>
+  </div>
+</section>

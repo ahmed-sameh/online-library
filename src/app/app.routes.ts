@@ -26,6 +26,13 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/search/search.component').then((c) => c.SearchComponent),
   },
+  {
+    path: 'wishlist',
+    loadComponent: () =>
+      import('./pages/wishlist/wishlist.component').then(
+        (c) => c.WishlistComponent
+      ),
+  },
 
   { path: '**', redirectTo: 'home' },
 ];

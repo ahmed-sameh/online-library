@@ -33,6 +33,7 @@ export class SearchComponent extends FormManage implements OnInit, OnDestroy {
   submited = false;
   qparamsSub: Subscription;
   _options: SearchOptions;
+
   constructor(
     private searchService: SearchService,
     private router: Router,
@@ -40,6 +41,7 @@ export class SearchComponent extends FormManage implements OnInit, OnDestroy {
   ) {
     super();
   }
+
   ngOnInit(): void {
     this.initForm();
     this.queryParamsHandler();

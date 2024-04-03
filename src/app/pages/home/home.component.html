@@ -4,7 +4,13 @@
   <section id="books-container" class="grid mb-8">
     @for (book of books |slice : 0 : 9 ; track $index) {
 
-    <app-book-card [_details]="book" class="h-full"></app-book-card>
+    <app-book-card [_details]="book" class="h-full"> </app-book-card>
+    }@empty {
+    <h2
+      class="mt-8 py-8 text-center text-gray-400 text-2xl col-span-3 font-semibold"
+    >
+      No Avalible Books
+    </h2>
     }
   </section>
 </div>
